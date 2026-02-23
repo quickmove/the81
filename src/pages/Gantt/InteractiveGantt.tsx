@@ -335,33 +335,13 @@ export function InteractiveGantt() {
           font-weight: 500;
           fill: var(--text-primary);
         }
-        /* 头部背景色 - 使用更广的选择器 */
-        .gantt-wrapper,
-        .gantt-wrapper .gantt,
-        .gantt-wrapper .header,
-        .gantt-wrapper .header rect,
-        .gantt-wrapper .header-row,
-        .gantt-wrapper .header-row rect,
-        .gantt-wrapper .upper-header,
-        .gantt-wrapper .upper-header rect,
-        .gantt-wrapper .lower-header,
-        .gantt-wrapper .lower-header rect,
-        .gantt .header,
-        .gantt .header rect,
-        .gantt .header-row,
-        .gantt .header-row rect,
-        .gantt .upper-header,
-        .gantt .upper-header rect,
-        .gantt .lower-header,
-        .gantt .lower-header rect,
-        .gantt .grid-header,
-        .gantt .grid-header rect,
-        .gantt .grid-header-row,
-        .gantt .grid-header-row rect,
-        .gantt .calendar-header,
-        .gantt .calendar-header rect,
-        .gantt .header-bg,
-        .gantt .header-bg rect {
+        /* 头部背景色 - grid-header 下的 upper-header 和 lower-header */
+        .gantt .grid-header .upper-header,
+        .gantt .grid-header .upper-header rect,
+        .gantt .grid-header .upper-header *,
+        .gantt .grid-header .lower-header,
+        .gantt .grid-header .lower-header rect,
+        .gantt .grid-header .lower-header * {
           fill: #16213e !important;
           background: #16213e !important;
         }
