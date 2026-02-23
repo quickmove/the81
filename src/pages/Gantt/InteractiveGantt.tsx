@@ -335,17 +335,27 @@ export function InteractiveGantt() {
           font-weight: 500;
           fill: var(--text-primary);
         }
-        .gantt .grid-header {
+        .gantt .grid-header,
+        .gantt .grid-header rect,
+        .gantt .grid-header-row,
+        .gantt .grid-header-row rect {
           fill: #16213e !important;
+          background: #16213e !important;
         }
-        .gantt .grid-header span {
+        .gantt .grid-header span,
+        .gantt .grid-header text {
+          fill: var(--text-primary) !important;
           color: var(--text-primary) !important;
         }
-        .gantt .grid-row {
+        .gantt .grid-row,
+        .gantt .grid-row rect {
           fill: var(--bg-card) !important;
+          background: var(--bg-card) !important;
         }
-        .gantt .grid-row:nth-child(even) {
+        .gantt .grid-row:nth-child(even),
+        .gantt .grid-row:nth-child(even) rect {
           fill: #0f3460 !important;
+          background: #0f3460 !important;
         }
         .gantt .today-highlight {
           fill: rgba(245, 197, 66, 0.2);
