@@ -89,19 +89,19 @@ export function GanttTaskItem({
         onContextMenu={handleContextMenu}
         style={{
           cursor: 'pointer',
-          backgroundColor: isSelected ? 'rgba(102, 126, 234, 0.1)' : index % 2 === 0 ? '#fff' : '#f8f9fa',
-          borderLeft: isSelected ? '3px solid #667eea' : '3px solid transparent',
+          backgroundColor: isSelected ? 'rgba(245, 197, 66, 0.2)' : index % 2 === 0 ? 'var(--bg-card)' : 'var(--bg-card-light)',
+          borderLeft: isSelected ? '3px solid var(--primary-gold)' : '3px solid transparent',
           transition: 'all 0.2s ease',
           minHeight: '38px'
         }}
         onMouseEnter={(e) => {
           if (!isSelected) {
-            e.currentTarget.style.backgroundColor = 'rgba(102, 126, 234, 0.05)';
+            e.currentTarget.style.backgroundColor = 'rgba(245, 197, 66, 0.1)';
           }
         }}
         onMouseLeave={(e) => {
           if (!isSelected) {
-            e.currentTarget.style.backgroundColor = index % 2 === 0 ? '#fff' : '#f8f9fa';
+            e.currentTarget.style.backgroundColor = index % 2 === 0 ? 'var(--bg-card)' : 'var(--bg-card-light)';
           }
         }}
       >
@@ -153,7 +153,7 @@ export function GanttTaskItem({
               style={{
                 flex: 1,
                 height: '4px',
-                backgroundColor: '#e2e8f0',
+                backgroundColor: 'var(--bg-darker)',
                 borderRadius: '2px'
               }}
             >
@@ -161,7 +161,7 @@ export function GanttTaskItem({
                 style={{
                   height: '100%',
                   width: `${task.progress}%`,
-                  backgroundColor: task.progress === 100 ? '#11998e' : '#667eea',
+                  backgroundColor: task.progress === 100 ? 'var(--accent-green)' : 'var(--primary-gold)',
                   borderRadius: '2px',
                   transition: 'width 0.3s ease'
                 }}

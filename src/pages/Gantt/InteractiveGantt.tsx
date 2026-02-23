@@ -277,9 +277,9 @@ export function InteractiveGantt() {
         <div className="card-modern overflow-hidden" style={{ minHeight: '400px' }}>
           <Row className="g-0" style={{ height: '100%' }}>
             {/* 左侧任务列表 */}
-            <Col xs={4} lg={3} className="border-end" style={{ background: '#fff', height: '100%', display: 'flex', flexDirection: 'column' }}>
-              <div className="p-2 border-bottom bg-light flex-shrink-0">
-                <small className="fw-medium text-muted">任务列表 ({filteredTasks.length})</small>
+            <Col xs={4} lg={3} className="border-end" style={{ background: 'var(--bg-card)', height: '100%', display: 'flex', flexDirection: 'column', borderColor: '#000 !important' }}>
+              <div className="p-2 border-bottom flex-shrink-0" style={{ background: 'var(--bg-darker)', borderColor: '#000' }}>
+                <small className="fw-medium" style={{ color: 'var(--primary-gold)' }}>任务列表 ({filteredTasks.length})</small>
               </div>
               <div
                 ref={taskListRef}
@@ -307,7 +307,7 @@ export function InteractiveGantt() {
             </Col>
 
             {/* 右侧甘特图 */}
-            <Col xs={8} lg={9} style={{ height: '100%', padding: '10px' }}>
+            <Col xs={8} lg={9} style={{ height: '100%', padding: '10px', background: 'var(--bg-card)' }}>
               <div
                 ref={ganttRef}
                 className="gantt-container"
@@ -331,16 +331,16 @@ export function InteractiveGantt() {
           font-weight: 500;
         }
         .gantt .grid-header {
-          fill: #f8fafc;
+          fill: #16213e;
         }
         .gantt .grid-row:nth-child(even) {
-          fill: #f8fafc;
+          fill: #0f3460;
         }
         .gantt .today-highlight {
-          fill: rgba(102, 126, 234, 0.1);
+          fill: rgba(245, 197, 66, 0.2);
         }
         .gantt .tick {
-          stroke: #e2e8f0;
+          stroke: #586e75;
         }
         .priority-urgent .bar, .selected-urgent .bar {
           fill: url(#gradient-urgent);
