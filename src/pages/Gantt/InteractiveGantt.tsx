@@ -47,67 +47,7 @@ export function InteractiveGantt() {
 
   const filteredTasks = getFilteredTasks();
 
-  // 准备甘特图数据
-  const getGanttTasks = useCallback(() => {
-    return filteredTasks.map(task => ({
-      id: task.id,
-      name: task.title,
-      start: task.startDate.toISOString().split('T')[0],
-      end: task.endDate.toISOString().split('T')[0],
-      progress: task.progress,
-      dependencies: task.dependencies.join(','),
-      custom_class: selectedTaskIds.includes(task.id) ? `selected-${task.priority}` : `priority-${task.priority}`
-    }));
-  }, [filteredTasks, selectedTaskIds]);
-
-  // 创建 Gantt 配置 - 使用 ref 来避免依赖问题
-  const createGanttOptions = useCallback(() => ({
-    view_mode: 'Day' as const,
-    date_format: 'YYYY-MM-DD',
-    language: 'zh',
-    on_click: (ganttTask: any) => {
-      const task = tasksRef.current.find(t => t.id === ganttTask.id);
-      if (task) {
-        if (isCreatingDependencyRef.current && dependencySourceRef.current && dependencySourceRef.current !== task.id) {
-          handleLinkTasks(dependencySourceRef.current, task.id);
-          setIsCreatingDependency(false);
-          setDependencySource(null);
-        } else {
-          handleSelectTask(task.id, false);
-        }
-      }
-    },
-    on_date_change: (task: any, start: string, end: string) => {
-      updateTaskRef.current(task.id, {
-        startDate: new Date(start),
-        endDate: new Date(end)
-      });
-    },
-    on_progress_change: (task: any, progress: number) => {
-      updateTaskRef.current(task.id, { progress });
-    }
-  }), []);
-
-  // 初始化甘特图（只执行一次）
-  useEffect(() => {
-    if (ganttRef.current && !ganttInstance.current && filteredTasks.length > 0) {
-      const ganttTasks = getGanttTasks();
-      ganttInstance.current = new Gantt(ganttRef.current, ganttTasks, createGanttOptions());
-    }
-
-    return () => {
-      if (ganttInstance.current) {
-        const container = ganttRef.current;
-        if (container) {
-          container.innerHTML = '';
-        }
-        ganttInstance.current = null;
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // 使用 ref 来跟踪状态，避免重新初始化甘特图
+  // 使用 ref 来跟踪状态
   const isCreatingDependencyRef = useRef(isCreatingDependency);
   const dependencySourceRef = useRef(dependencySource);
   const tasksRef = useRef(tasks);
@@ -120,26 +60,18 @@ export function InteractiveGantt() {
     updateTaskRef.current = updateTask;
   }, [isCreatingDependency, dependencySource, tasks, updateTask]);
 
-  // 更新甘特图数据（当任务数据变化时）
-  // 使用 JSON.stringify 来比较数据变化，避免重复创建
-  const [ganttDataKey, setGanttDataKey] = useState<string>('');
-
+  // 甘特图初始化和更新 - 统一管理
   useEffect(() => {
-    const newKey = JSON.stringify(filteredTasks.map(t => ({
-      id: t.id,
-      title: t.title,
-      start: t.startDate.toISOString(),
-      end: t.endDate.toISOString(),
-      progress: t.progress,
-      dependencies: t.dependencies,
-      priority: t.priority
-    })));
+    if (!ganttRef.current) return;
 
-    if (ganttDataKey && ganttDataKey !== newKey && ganttInstance.current && ganttRef.current) {
-      // 数据变化了，重新创建甘特图
+    // 如果已经有实例，先清理
+    if (ganttInstance.current && ganttRef.current) {
       ganttRef.current.innerHTML = '';
       ganttInstance.current = null;
+    }
 
+    // 只有有数据时才创建
+    if (filteredTasks.length > 0) {
       const ganttTasks = filteredTasks.map(task => ({
         id: task.id,
         name: task.title,
@@ -178,7 +110,13 @@ export function InteractiveGantt() {
       });
     }
 
-    setGanttDataKey(newKey);
+    // 清理函数
+    return () => {
+      if (ganttInstance.current && ganttRef.current) {
+        ganttRef.current.innerHTML = '';
+        ganttInstance.current = null;
+      }
+    };
   }, [filteredTasks, selectedTaskIds]);
 
   // 选择任务
