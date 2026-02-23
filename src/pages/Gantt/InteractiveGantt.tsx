@@ -343,7 +343,8 @@ export function InteractiveGantt() {
         .gantt .bar-label {
           font-size: 11px;
           font-weight: 500;
-          fill: var(--text-primary);
+          fill: #ffffff !important;
+          color: #ffffff !important;
         }
         .gantt .grid-header,
         .gantt .grid-header rect,
@@ -360,8 +361,8 @@ export function InteractiveGantt() {
         .gantt .grid-header text,
         .gantt .date-picker-text,
         .gantt .calendar-weekday text {
-          fill: var(--text-primary) !important;
-          color: var(--text-primary) !important;
+          fill: #ffffff !important;
+          color: #ffffff !important;
         }
         .gantt .grid-row,
         .gantt .grid-row rect {
