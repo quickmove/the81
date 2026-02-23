@@ -32,11 +32,11 @@
   --bg-card: #0f3460;
   --bg-card-light: #1a4578;
 
-  /* 文字颜色 */
-  --text-primary: #f5c542;
-  --text-secondary: #e8d5a3;
-  --text-light: #ffffff;
-  --text-muted: #a0a0a0;
+  /* 文字颜色 - Solarized 配色 */
+  --text-primary: #eee8d5;    /* Base2 - 深色背景主文字 */
+  --text-secondary: #93a1a1; /* Base1 - 深色背景次要文字 */
+  --text-light: #fdf6e3;      /* Base3 - 最亮文字 */
+  --text-muted: #586e75;     /* Base01 - 暗色文字 */
 
   /* 像素边框 */
   --pixel-border: 4px solid #000;
