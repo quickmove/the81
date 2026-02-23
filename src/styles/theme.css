@@ -26,17 +26,17 @@
   --accent-purple: #9b59b6;
   --accent-purple-dark: #8e44ad;
 
-  /* 背景色 - 亮色主题 */
-  --bg-dark: #f5f5f5;
-  --bg-darker: #ffffff;
-  --bg-card: #ffffff;
-  --bg-card-light: #fafafa;
+  /* 背景色 - 深色主题 */
+  --bg-dark: #1a1a2e;
+  --bg-darker: #16213e;
+  --bg-card: #0f3460;
+  --bg-card-light: #1a4578;
 
   /* 文字颜色 */
-  --text-primary: #1a1a1a;
-  --text-secondary: #4a4a4a;
-  --text-light: #1a1a1a;
-  --text-muted: #888888;
+  --text-primary: #f5c542;
+  --text-secondary: #e8d5a3;
+  --text-light: #ffffff;
+  --text-muted: #a0a0a0;
 
   /* 像素边框 */
   --pixel-border: 4px solid #000;
@@ -114,7 +114,6 @@ body::before {
 .navbar-custom .nav-link:hover {
   background: var(--accent-red);
   color: #fff !important;
-  border: 2px solid #000;
 }
 
 .navbar-custom .nav-link.active {
@@ -157,18 +156,17 @@ body::before {
 
 /* ==================== 卡片样式 ==================== */
 .card-modern {
-  background: #ffffff;
+  background: var(--bg-card);
   border: var(--pixel-border);
   transition: all 0.1s;
 }
 
 .card-modern:hover {
-  transform: translate(-2px, -2px);
 }
 
 .card-gradient {
   position: relative;
-  background: #ffffff;
+  background: var(--bg-card);
   border: var(--pixel-border);
 }
 
@@ -200,14 +198,13 @@ body::before {
 
 /* ==================== 统计卡片 ==================== */
 .stat-card {
-  background: #ffffff;
+  background: var(--bg-card);
   border: var(--pixel-border);
   padding: 1.5rem;
   position: relative;
 }
 
 .stat-card:hover {
-  transform: translate(-2px, -2px);
 }
 
 .stat-icon {
@@ -263,14 +260,10 @@ body::before {
 }
 
 .btn-gradient:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 #000;
   color: #000;
 }
 
 .btn-gradient:active {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 #000;
 }
 
 .btn-gradient-success {
@@ -296,18 +289,14 @@ body::before {
 .btn-pixel:hover {
   background: var(--accent-red);
   color: var(--text-light);
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 #000;
 }
 
 .btn-pixel:active {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 #000;
 }
 
 /* ==================== 版本卡片 ==================== */
 .version-card {
-  background: #ffffff;
+  background: var(--bg-card);
   border: var(--pixel-border);
   position: relative;
 }
@@ -323,7 +312,6 @@ body::before {
 }
 
 .version-card:hover {
-  transform: translate(-2px, -2px);
 }
 
 .version-card.planning::before {
@@ -344,25 +332,25 @@ body::before {
 
 /* ==================== 看板样式 ==================== */
 .kanban-column {
-  background: #f0f0f0;
+  background: var(--bg-card);
   border: var(--pixel-border);
 }
 
 .kanban-column-header {
-  background: #e0e0e0;
+  background: var(--bg-darker);
   border-bottom: 3px solid #000;
   padding: 1rem;
   margin-bottom: 0;
 }
 
 .kanban-task {
-  background: #ffffff;
+  background: var(--bg-card);
   border: 3px solid #000;
   cursor: grab;
 }
 
 .kanban-task:hover {
-  background: #ffebee;
+  background: var(--accent-red-dark);
 }
 
 .kanban-task.dragging {
@@ -373,7 +361,7 @@ body::before {
 /* ==================== 进度条样式 ==================== */
 .progress-modern {
   height: 16px;
-  background: #e0e0e0;
+  background: var(--bg-darker);
   border: 3px solid #000;
 }
 
@@ -488,7 +476,7 @@ body::before {
 
 /* ==================== 表单样式 ==================== */
 .form-control-modern {
-  background: #ffffff;
+  background: var(--bg-card);
   border: 3px solid #000;
   color: var(--text-primary);
   font-family: 'Press Start 2P', monospace;
@@ -608,7 +596,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .table tbody tr {
-  background: #ffffff;
+  background: var(--bg-card);
   border-bottom: 2px solid #000;
 }
 
