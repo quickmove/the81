@@ -6,6 +6,9 @@ import { useTaskStore } from '../../stores/taskStore';
 import { useEffect, useRef, useState } from 'react';
 import { initDefaultKanbanColumns } from '../../db/database';
 
+// 版本序列号 - 每次修改后累加
+const VERSION = 'v1.0.27';
+
 export function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const { versions, selectedVersionId, selectVersion, loadVersions, isLoading: versionLoading } = useVersionStore();
@@ -120,7 +123,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <footer className="py-3 mt-auto" style={{ background: 'var(--bg-darker)', borderTop: '4px solid #000' }}>
         <Container className="text-center">
           <small style={{ color: 'var(--primary-gold)', fontFamily: "'Press Start 2P', monospace", fontSize: '8px' }}>
-            🐵 九九八一 - 西天取经任务管理系统 🐲
+            🐵 九九八一 - 西天取经任务管理系统 🐲 {VERSION}
           </small>
         </Container>
       </footer>
