@@ -325,6 +325,9 @@ export function InteractiveGantt() {
       <style>{`
         .gantt-container {
           background: var(--bg-card) !important;
+          --g-header-background: #16213e !important;
+          --g-text-dark: #ffffff !important;
+          --g-text-muted: #93a1a1 !important;
         }
         .gantt-container .gantt {
           overflow: auto;
