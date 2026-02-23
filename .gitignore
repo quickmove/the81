@@ -160,3 +160,6 @@ dist-ssr
 *.jpeg
 *.png
 *.gif
+
+# Claude Code
+.claude/
