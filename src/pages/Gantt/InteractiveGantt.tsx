@@ -274,7 +274,7 @@ export function InteractiveGantt() {
           </button>
         </div>
       ) : (
-        <div className="card-modern overflow-hidden" style={{ minHeight: '400px' }}>
+        <div className="card-modern overflow-hidden" style={{ minHeight: '400px', background: 'var(--bg-card)', borderColor: '#000' }}>
           <Row className="g-0" style={{ height: '100%' }}>
             {/* 左侧任务列表 */}
             <Col xs={4} lg={3} className="border-end" style={{ background: 'var(--bg-card)', height: '100%', display: 'flex', flexDirection: 'column', borderColor: '#000 !important' }}>
@@ -323,15 +323,23 @@ export function InteractiveGantt() {
       )}
 
       <style>{`
+        .gantt-container {
+          background: var(--bg-card) !important;
+        }
         .gantt-container .gantt {
           overflow: auto;
+          background: var(--bg-card);
         }
         .gantt .bar-label {
           font-size: 11px;
           font-weight: 500;
+          fill: var(--text-primary);
         }
         .gantt .grid-header {
           fill: #16213e;
+        }
+        .gantt .grid-row {
+          fill: var(--bg-card);
         }
         .gantt .grid-row:nth-child(even) {
           fill: #0f3460;
@@ -341,6 +349,12 @@ export function InteractiveGantt() {
         }
         .gantt .tick {
           stroke: #586e75;
+        }
+        .gantt .grid-vertical-line {
+          stroke: #586e75;
+        }
+        .gantt .grid-cell {
+          fill: var(--bg-card);
         }
         .priority-urgent .bar, .selected-urgent .bar {
           fill: url(#gradient-urgent);
