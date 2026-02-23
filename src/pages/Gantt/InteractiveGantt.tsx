@@ -387,7 +387,10 @@ export function InteractiveGantt() {
         .gantt .month-text,
         .gantt .calendar-month-text,
         .gantt .upper-text,
-        .gantt .upper-text text {
+        .gantt .upper-text text,
+        .gantt .month-name,
+        .gantt .month-name text,
+        .gantt .bar-month-duration-text {
           fill: #ffffff !important;
           color: #ffffff !important;
           font-weight: bold;
