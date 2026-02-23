@@ -377,6 +377,23 @@ export function InteractiveGantt() {
         .gantt .today-highlight {
           fill: rgba(184, 134, 11, 0.3);
         }
+        .gantt .today-highlight text,
+        .gantt .today-text,
+        .gantt .today-label {
+          fill: #ffffff !important;
+          color: #ffffff !important;
+        }
+        .gantt .month-duration-text,
+        .gantt .month-text,
+        .gantt .calendar-month-text {
+          fill: #ffffff !important;
+          color: #ffffff !important;
+          font-weight: bold;
+        }
+        .gantt text {
+          fill: #ffffff !important;
+          color: #ffffff !important;
+        }
         .gantt .tick {
           stroke: #586e75;
         }
