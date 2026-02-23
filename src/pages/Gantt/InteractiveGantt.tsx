@@ -274,7 +274,7 @@ export function InteractiveGantt() {
           </button>
         </div>
       ) : (
-        <div className="card-modern overflow-hidden" style={{ minHeight: '400px', background: 'var(--bg-card)', borderColor: '#000' }}>
+        <div className="card-modern overflow-hidden" style={{ height: 'calc(100vh - 250px)', minHeight: '400px', background: 'var(--bg-card)', borderColor: '#000' }}>
           <Row className="g-0" style={{ height: '100%' }}>
             {/* 左侧任务列表 */}
             <Col xs={4} lg={3} className="border-end" style={{ background: 'var(--bg-card)', height: '100%', display: 'flex', flexDirection: 'column', borderColor: '#000 !important' }}>
