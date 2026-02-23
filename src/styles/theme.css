@@ -385,20 +385,17 @@ body::before {
 .kanban-task {
   background: var(--bg-card-light);
   border: 3px solid #000;
-  box-shadow: 3px 3px 0 #000;
   cursor: grab;
 }
 
 .kanban-task:hover {
   background: var(--accent-red-dark);
   transform: translate(-2px, -2px);
-  box-shadow: 5px 5px 0 #000;
 }
 
 .kanban-task.dragging {
   opacity: 0.8;
   transform: rotate(0deg);
-  box-shadow: 6px 6px 0 #000;
 }
 
 /* ==================== 进度条样式 ==================== */
