@@ -5,9 +5,7 @@ import { useVersionStore } from '../../stores/versionStore';
 import { useTaskStore } from '../../stores/taskStore';
 import { useEffect, useRef, useState } from 'react';
 import { initDefaultKanbanColumns } from '../../db/database';
-
-// 版本序列号 - 每次修改后累加
-const VERSION = 'v1.0.27';
+import { VERSION } from './VERSION';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
