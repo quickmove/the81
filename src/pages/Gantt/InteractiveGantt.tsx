@@ -335,15 +335,25 @@ export function InteractiveGantt() {
           font-weight: 500;
           fill: var(--text-primary);
         }
+        /* 头部背景色 - 使用更广的选择器 */
+        .gantt .header,
+        .gantt .header rect,
+        .gantt .header-row,
+        .gantt .header-row rect,
         .gantt .grid-header,
         .gantt .grid-header rect,
         .gantt .grid-header-row,
         .gantt .grid-header-row rect,
         .gantt .calendar-header,
-        .gantt .calendar-header rect {
+        .gantt .calendar-header rect,
+        .gantt .header-bg,
+        .gantt .header-bg rect {
           fill: #16213e !important;
           background: #16213e !important;
         }
+        /* 头部文字颜色 */
+        .gantt .header-text,
+        .gantt .header-text text,
         .gantt .grid-header span,
         .gantt .grid-header text {
           fill: #ffffff !important;
