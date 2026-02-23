@@ -338,14 +338,16 @@ export function InteractiveGantt() {
         .gantt .grid-header,
         .gantt .grid-header rect,
         .gantt .grid-header-row,
-        .gantt .grid-header-row rect {
+        .gantt .grid-header-row rect,
+        .gantt .calendar-header,
+        .gantt .calendar-header rect {
           fill: #16213e !important;
           background: #16213e !important;
         }
         .gantt .grid-header span,
         .gantt .grid-header text {
-          fill: var(--text-primary) !important;
-          color: var(--text-primary) !important;
+          fill: #ffffff !important;
+          color: #ffffff !important;
         }
         .gantt .grid-row,
         .gantt .grid-row rect {
