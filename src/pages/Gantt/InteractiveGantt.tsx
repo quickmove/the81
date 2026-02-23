@@ -343,8 +343,8 @@ export function InteractiveGantt() {
         .gantt .bar-label {
           font-size: 11px;
           font-weight: 500;
-          fill: #ffffff !important;
-          color: #ffffff !important;
+          fill: #000000 !important;
+          color: #000000 !important;
         }
         .gantt .grid-header,
         .gantt .grid-header rect,
