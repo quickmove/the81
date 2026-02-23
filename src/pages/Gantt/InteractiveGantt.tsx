@@ -329,6 +329,7 @@ export function InteractiveGantt() {
           --g-text-dark: #ffffff !important;
           --g-text-muted: #93a1a1 !important;
           --g-actions-background: #f5c542 !important;
+          height: calc(var(--gv-grid-height) + 60px) !important;
         }
         .gantt-container .side-header .btn-today {
           background: #f5c542 !important;
