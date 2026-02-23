@@ -323,6 +323,16 @@ export function InteractiveGantt() {
       )}
 
       <style>{`
+        /* 强制所有甘特图元素使用深色背景 */
+        .gantt-container,
+        .gantt-container * {
+          background-color: transparent !important;
+        }
+        .gantt-container .gantt,
+        .gantt-container .gantt * {
+          fill: #16213e !important;
+          background: #16213e !important;
+        }
         .gantt-container {
           background: var(--bg-card) !important;
         }
@@ -338,12 +348,18 @@ export function InteractiveGantt() {
         .gantt .grid-header,
         .gantt .grid-header rect,
         .gantt .grid-header-row,
-        .gantt .grid-header-row rect {
+        .gantt .grid-header-row rect,
+        .gantt .date-picker,
+        .gantt .date-picker-container,
+        .gantt .calendar-header,
+        .gantt .calendar-weekday {
           fill: #16213e !important;
           background: #16213e !important;
         }
         .gantt .grid-header span,
-        .gantt .grid-header text {
+        .gantt .grid-header text,
+        .gantt .date-picker-text,
+        .gantt .calendar-weekday text {
           fill: var(--text-primary) !important;
           color: var(--text-primary) !important;
         }
