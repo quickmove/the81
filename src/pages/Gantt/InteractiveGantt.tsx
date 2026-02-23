@@ -328,6 +328,11 @@ export function InteractiveGantt() {
           --g-header-background: #16213e !important;
           --g-text-dark: #ffffff !important;
           --g-text-muted: #93a1a1 !important;
+          --g-actions-background: #f5c542 !important;
+        }
+        .gantt-container .side-header .btn-today {
+          background: #f5c542 !important;
+          color: #000 !important;
         }
         .gantt-container .gantt {
           overflow: auto;
