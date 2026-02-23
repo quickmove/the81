@@ -358,7 +358,7 @@ export function InteractiveGantt() {
           background: #0f3460 !important;
         }
         .gantt .today-highlight {
-          fill: rgba(245, 197, 66, 0.2);
+          fill: rgba(184, 134, 11, 0.3);
         }
         .gantt .tick {
           stroke: #586e75;
@@ -373,7 +373,7 @@ export function InteractiveGantt() {
           background: var(--bg-card) !important;
         }
         .gantt .holiday {
-          fill: rgba(231, 76, 60, 0.2) !important;
+          fill: rgba(139, 0, 0, 0.3) !important;
         }
         .gantt-container svg {
           background: var(--bg-card) !important;
