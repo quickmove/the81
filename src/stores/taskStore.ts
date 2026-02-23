@@ -8,7 +8,7 @@ interface TaskState {
   isLoading: boolean;
   error: string | null;
   filter: TaskFilter;
-  
+
   // 操作
   loadTasks: () => Promise<void>;
   loadTasksByVersion: (versionId: string) => Promise<void>;
@@ -19,6 +19,10 @@ interface TaskState {
   setFilter: (filter: TaskFilter) => void;
   applyFilter: () => void;
   getTasksByStatus: (status: TaskStatus) => Task[];
+  // 乐观更新辅助方法
+  updateTaskLocally: (id: string, changes: Partial<Task>) => void;
+  addTaskLocally: (task: Task) => void;
+  deleteTaskLocally: (id: string) => void;
 }
 
 export const useTaskStore = create<TaskState>((set, get) => ({
@@ -52,8 +56,12 @@ export const useTaskStore = create<TaskState>((set, get) => ({
 
   addTask: async (taskData) => {
     try {
-      await taskDB.add(taskData);
-      await get().loadTasks();
+      const id = await taskDB.add(taskData);
+      // 乐观更新：从数据库获取刚添加的任务（包含生成的ID）
+      const newTask = await taskDB.getById(id);
+      if (newTask) {
+        get().addTaskLocally(newTask);
+      }
     } catch (err) {
       set({ error: '添加任务失败' });
     }
@@ -62,7 +70,8 @@ export const useTaskStore = create<TaskState>((set, get) => ({
   updateTask: async (id, changes) => {
     try {
       await taskDB.update(id, changes);
-      await get().loadTasks();
+      // 乐观更新
+      get().updateTaskLocally(id, { ...changes, updatedAt: new Date() });
     } catch (err) {
       set({ error: '更新任务失败' });
     }
@@ -71,7 +80,8 @@ export const useTaskStore = create<TaskState>((set, get) => ({
   deleteTask: async (id) => {
     try {
       await taskDB.delete(id);
-      await get().loadTasks();
+      // 乐观更新
+      get().deleteTaskLocally(id);
     } catch (err) {
       set({ error: '删除任务失败' });
     }
@@ -80,7 +90,8 @@ export const useTaskStore = create<TaskState>((set, get) => ({
   moveTask: async (taskId, newStatus, newOrder) => {
     try {
       await taskDB.updateOrder(taskId, newOrder, newStatus);
-      await get().loadTasks();
+      // 乐观更新
+      get().updateTaskLocally(taskId, { status: newStatus, order: newOrder, updatedAt: new Date() });
     } catch (err) {
       set({ error: '移动任务失败' });
     }
@@ -122,5 +133,49 @@ export const useTaskStore = create<TaskState>((set, get) => ({
 
   getTasksByStatus: (status) => {
     return get().filteredTasks.filter(t => t.status === status).sort((a, b) => a.order - b.order);
+  },
+
+  updateTaskLocally: (id, changes) => {
+    const { tasks, filter } = get();
+    const updatedTasks = tasks.map(t =>
+      t.id === id ? { ...t, ...changes } : t
+    );
+    // 同时更新 filteredTasks
+    let filteredTasks = [...updatedTasks];
+    if (filter.versionId) {
+      filteredTasks = filteredTasks.filter(t => t.versionId === filter.versionId);
+    }
+    if (filter.status) {
+      filteredTasks = filteredTasks.filter(t => t.status === filter.status);
+    }
+    if (filter.priority) {
+      filteredTasks = filteredTasks.filter(t => t.priority === filter.priority);
+    }
+    set({ tasks: updatedTasks, filteredTasks });
+  },
+
+  addTaskLocally: (task) => {
+    const { tasks, filter } = get();
+    const newTasks = [...tasks, task];
+    // 根据当前筛选条件决定是否添加到 filteredTasks
+    let shouldAdd = true;
+    if (filter.versionId && task.versionId !== filter.versionId) {
+      shouldAdd = false;
+    }
+    if (filter.status && task.status !== filter.status) {
+      shouldAdd = false;
+    }
+    if (filter.priority && task.priority !== filter.priority) {
+      shouldAdd = false;
+    }
+    const newFilteredTasks = shouldAdd ? [...get().filteredTasks, task] : get().filteredTasks;
+    set({ tasks: newTasks, filteredTasks: newFilteredTasks });
+  },
+
+  deleteTaskLocally: (id) => {
+    const { tasks, filteredTasks } = get();
+    const newTasks = tasks.filter(t => t.id !== id);
+    const newFilteredTasks = filteredTasks.filter(t => t.id !== id);
+    set({ tasks: newTasks, filteredTasks: newFilteredTasks });
   }
 }));

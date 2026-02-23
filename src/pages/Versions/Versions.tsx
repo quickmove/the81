@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Container, Row, Col, Dropdown } from 'react-bootstrap';
 import { Plus, MoreVertical, Edit2, Trash2, Archive, Play, CheckCircle } from 'lucide-react';
 import { VersionModal } from '../../components/Modals/VersionModal';
@@ -7,15 +7,10 @@ import { useTaskStore } from '../../stores/taskStore';
 import type { Version, VersionStatus } from '../../models/types';
 
 export function Versions() {
-  const { versions, loadVersions, addVersion, updateVersion, deleteVersion } = useVersionStore();
-  const { tasks, loadTasks } = useTaskStore();
+  const { versions, addVersion, updateVersion, deleteVersion } = useVersionStore();
+  const { tasks } = useTaskStore();
   const [showModal, setShowModal] = useState(false);
   const [editingVersion, setEditingVersion] = useState<Version | null>(null);
-
-  useEffect(() => {
-    loadVersions();
-    loadTasks();
-  }, [loadVersions, loadTasks]);
 
   const handleSave = (versionData: Omit<Version, 'id' | 'createdAt' | 'updatedAt'>) => {
     if (editingVersion) {
@@ -51,7 +46,7 @@ export function Versions() {
   return (
     <Container className="py-2">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h1 className="mb-0 fw-bold" style={{ color: 'var(--text-primary)' }}>版本管理</h1>
+        <h1 className="mb-0 fw-bold" style={{ color: 'var(--primary-gold)' }}>📜 取经版本 📜</h1>
         <button 
           className="btn-gradient d-flex align-items-center gap-2"
           onClick={() => { setEditingVersion(null); setShowModal(true); }}
@@ -64,8 +59,8 @@ export function Versions() {
       {versions.length === 0 ? (
         <div className="card-gradient p-5 text-center">
           <div className="mb-3" style={{ fontSize: '4rem', opacity: 0.5 }}>📦</div>
-          <h5 className="mb-2" style={{ color: 'var(--text-primary)' }}>暂无版本</h5>
-          <p className="mb-3" style={{ color: 'var(--text-secondary)' }}>点击"新建版本"开始创建你的第一个版本计划</p>
+          <h5 className="mb-2" style={{ color: 'var(--primary-gold)' }}>暂无经书</h5>
+          <p className="mb-3" style={{ color: 'var(--text-secondary)' }}>点击"新建取经"开始创建你的取经计划</p>
           <button 
             className="btn-gradient"
             onClick={() => { setEditingVersion(null); setShowModal(true); }}

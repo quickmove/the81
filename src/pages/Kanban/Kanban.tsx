@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Badge, Button, Form } from 'react-bootstrap';
 import {
   DndContext,
@@ -34,21 +34,16 @@ const COLUMNS: { id: TaskStatus; title: string }[] = [
 ];
 
 export function Kanban() {
-  const { versions, selectedVersionId, selectVersion, loadVersions } = useVersionStore();
-  const { tasks, loadTasks, addTask, updateTask } = useTaskStore();
-  
+  const { versions, selectedVersionId, selectVersion } = useVersionStore();
+  const { tasks, addTask, moveTask } = useTaskStore();
+
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [defaultStatus, setDefaultStatus] = useState<TaskStatus>('todo');
-  
+
   // 本地状态用于拖拽时的临时显示
   const [localTasks, setLocalTasks] = useState<Task[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
 
-  useEffect(() => {
-    loadVersions();
-    loadTasks();
-  }, [loadVersions, loadTasks]);
-  
   // 同步本地任务状态
   useEffect(() => {
     setLocalTasks(tasks);
@@ -117,24 +112,62 @@ export function Kanban() {
     // 确定目标列
     const overColumn = COLUMNS.find(col => col.id === overId);
     const targetStatus = overColumn ? overColumn.id : activeTask.status;
-    
+
     // 计算新的排序
     const columnTasks = getTasksByStatus(targetStatus);
     const overTask = localTasks.find(t => t.id === overId);
-    
-    let newOrder = activeTask.order;
-    if (overTask && overTask.id !== activeId) {
-      const overIndex = columnTasks.findIndex(t => t.id === overId);
-      newOrder = overIndex >= 0 ? overIndex : columnTasks.length;
-    } else if (overColumn) {
-      newOrder = columnTasks.length;
+
+    // 如果没有目标任务或目标就是当前任务，不需要处理
+    if (!overTask || overTask.id === activeId) {
+      // 如果只是改变了列
+      if (activeTask.status !== targetStatus) {
+        const newOrder = columnTasks.length;
+        moveTask(activeId, targetStatus, newOrder);
+      }
+      return;
     }
 
-    // 更新服务器状态
-    updateTask(activeId, { 
-      status: targetStatus,
-      order: newOrder 
-    });
+    // 获取目标位置在数组中的索引
+    const overIndex = columnTasks.findIndex(t => t.id === overId);
+    if (overIndex < 0) {
+      return;
+    }
+
+    // 计算新 order：使用相邻任务的平均值
+    let newOrder: number;
+    if (overIndex === 0) {
+      // 插入到第一个位置
+      newOrder = columnTasks[0].order - 1000;
+    } else if (overIndex >= columnTasks.length - 1) {
+      // 插入到最后一个位置
+      newOrder = columnTasks[columnTasks.length - 1].order + 1000;
+    } else {
+      // 插入到中间位置：取前后任务的平均值
+      const prevOrder = columnTasks[overIndex - 1].order;
+      const nextOrder = columnTasks[overIndex].order;
+      newOrder = Math.floor((prevOrder + nextOrder) / 2);
+
+      // 如果平均值等于前一个 order，说明太密集了，需要重新整理
+      if (newOrder === prevOrder) {
+        // 重新整理该列所有任务的 order
+        const updatedColumnTasks = columnTasks.map((t, idx) => ({
+          ...t,
+          order: (idx + 1) * 1000
+        }));
+        // 更新本地状态用于显示
+        setLocalTasks(prev => {
+          return prev.map(t => {
+            const updated = updatedColumnTasks.find(ut => ut.id === t.id);
+            return updated || t;
+          });
+        });
+        // 使用更新后的 order
+        newOrder = (overIndex + 1) * 1000;
+      }
+    }
+
+    // 使用 moveTask 更新服务器状态
+    moveTask(activeId, targetStatus, newOrder);
   };
 
   const handleAddTask = (status: TaskStatus) => {
@@ -162,10 +195,10 @@ export function Kanban() {
   };
 
   const columnColors: Record<TaskStatus, string> = {
-    todo: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    in_progress: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-    review: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-    done: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)'
+    todo: 'var(--accent-purple)',
+    in_progress: 'var(--accent-blue)',
+    review: 'var(--accent-red)',
+    done: 'var(--accent-green)'
   };
 
   // 获取拖拽覆盖层的任务
@@ -177,13 +210,13 @@ export function Kanban() {
   return (
     <Container fluid className="py-2">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h1 className="mb-0 fw-bold" style={{ color: 'var(--text-primary)' }}>看板</h1>
+        <h1 className="mb-0 fw-bold" style={{ color: 'var(--primary-gold)' }}>🔥 八卦炉 🔥</h1>
         <Form.Select 
           style={{ width: '200px', borderRadius: 'var(--radius-md)', border: '2px solid var(--bg-secondary)' }}
           value={selectedVersionId || ''}
           onChange={(e) => selectVersion(e.target.value || null)}
         >
-          <option value="">全部版本</option>
+          <option value="">📚 全部经书</option>
           {versions.map(v => (
             <option key={v.id} value={v.id}>{v.versionNumber}</option>
           ))}

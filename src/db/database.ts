@@ -121,7 +121,87 @@ export const taskDB = {
   },
 
   async updateOrder(taskId: string, newOrder: number, newStatus: string): Promise<void> {
-    await db.tasks.update(taskId, { order: newOrder, status: newStatus as Task['status'], updatedAt: new Date() });
+    const task = await db.tasks.get(taskId);
+    if (!task) return;
+
+    const oldStatus = task.status;
+    const oldOrder = task.order;
+
+    // 如果状态和位置都没变，不需要重新排序
+    if (oldStatus === newStatus && oldOrder === newOrder) {
+      return;
+    }
+
+    // 使用事务处理排序更新
+    await db.transaction('rw', db.tasks, async () => {
+      // 如果移动到了新位置，需要重新计算受影响任务的 order
+      const tasksToUpdate: Task[] = [];
+
+      if (oldStatus === newStatus) {
+        // 同一列内移动
+        if (newOrder > oldOrder) {
+          // 向下移动：将 oldOrder 和 newOrder 之间的任务 order 减 1
+          const tasks = await db.tasks
+            .where('status')
+            .equals(newStatus)
+            .filter(t => t.id !== taskId && t.order > oldOrder && t.order <= newOrder)
+            .toArray();
+          tasksToUpdate.push(...tasks);
+        } else {
+          // 向上移动：将 newOrder 和 oldOrder 之间的任务 order 加 1
+          const tasks = await db.tasks
+            .where('status')
+            .equals(newStatus)
+            .filter(t => t.id !== taskId && t.order >= newOrder && t.order < oldOrder)
+            .toArray();
+          tasksToUpdate.push(...tasks);
+        }
+      } else {
+        // 跨列移动：原列目标上移，新列目标下移
+        // 原列：order > oldOrder 的任务上移
+        const oldColumnTasks = await db.tasks
+          .where('status')
+          .equals(oldStatus)
+          .filter(t => t.id !== taskId && t.order > oldOrder)
+          .toArray();
+        tasksToUpdate.push(...oldColumnTasks);
+
+        // 新列：order >= newOrder 的任务下移
+        const newColumnTasks = await db.tasks
+          .where('status')
+          .equals(newStatus)
+          .filter(t => t.order >= newOrder)
+          .toArray();
+        tasksToUpdate.push(...newColumnTasks);
+      }
+
+      // 更新移动的任务
+      await db.tasks.update(taskId, {
+        order: newOrder,
+        status: newStatus as Task['status'],
+        updatedAt: new Date()
+      });
+
+      // 更新其他受影响的任务
+      for (const t of tasksToUpdate) {
+        const newTaskOrder = (() => {
+          if (oldStatus === newStatus) {
+            if (newOrder > oldOrder) {
+              return t.order - 1;
+            } else {
+              return t.order + 1;
+            }
+          } else {
+            if (t.status === oldStatus) {
+              return t.order - 1;
+            } else {
+              return t.order + 1;
+            }
+          }
+        })();
+        await db.tasks.update(t.id, { order: newTaskOrder, updatedAt: new Date() });
+      }
+    });
   }
 };
 

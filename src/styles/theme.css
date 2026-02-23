@@ -1,38 +1,54 @@
-/* The81 自定义主题样式 */
+/* 像素西游主题 - Journey to the West Pixel Style */
+
+/* 像素字体 - 必须放在最前面 */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 /* ==================== CSS 变量定义 ==================== */
 :root {
-  /* 主色调 - 渐变蓝紫 */
-  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --primary-color: #667eea;
-  --secondary-color: #764ba2;
-  
-  /* 状态颜色 */
-  --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-  --warning-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --info-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  --danger-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-  
-  /* 中性色 */
-  --bg-primary: #f8fafc;
-  --bg-secondary: #f1f5f9;
-  --bg-card: #ffffff;
-  --text-primary: #1e293b;
-  --text-secondary: #64748b;
-  --text-muted: #94a3b8;
-  
-  /* 阴影 */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --shadow-glow: 0 0 20px rgba(102, 126, 234, 0.3);
-  
-  /* 圆角 */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  /* 主色调 - 西游金 */
+  --primary-gold: #f5c542;
+  --primary-gold-dark: #d4a030;
+  --primary-gold-light: #ffd966;
+
+  /* 辅助色 - 东方红 */
+  --accent-red: #e74c3c;
+  --accent-red-dark: #c0392b;
+
+  /* 辅助色 - 天空蓝 */
+  --accent-blue: #3498db;
+  --accent-blue-dark: #2980b9;
+
+  /* 辅助色 - 竹林绿 */
+  --accent-green: #27ae60;
+  --accent-green-dark: #1e8449;
+
+  /* 辅助色 - 紫金 */
+  --accent-purple: #9b59b6;
+  --accent-purple-dark: #8e44ad;
+
+  /* 背景色 */
+  --bg-dark: #1a1a2e;
+  --bg-darker: #16213e;
+  --bg-card: #0f3460;
+  --bg-card-light: #1a4578;
+
+  /* 文字颜色 */
+  --text-primary: #f5c542;
+  --text-secondary: #e8d5a3;
+  --text-light: #ffffff;
+  --text-muted: #a0a0a0;
+
+  /* 像素边框 */
+  --pixel-border: 4px solid #000;
+  --pixel-border-light: 4px solid #f5c542;
+
+  /* 阴影 - 像素风格硬阴影 */
+  --shadow-pixel: 6px 6px 0px #000;
+  --shadow-pixel-sm: 4px 4px 0px #000;
+  --shadow-pixel-lg: 8px 8px 0px #000;
+
+  /* 圆角 - 像素风格不使用圆角 */
+  --radius-none: 0;
 }
 
 /* ==================== 全局样式 ==================== */
@@ -41,108 +57,129 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-  background: #f1f5f9 !important;
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  background: var(--bg-dark) !important;
   min-height: 100vh;
-  font-size: 14px;
+  font-size: 12px;
+  color: var(--text-light);
+  /* 像素化背景 */
+  image-rendering: pixelated;
 }
 
 #root {
-  background: #f1f5f9;
+  background: var(--bg-dark);
   min-height: 100vh;
 }
 
-/* ==================== 导航栏样式 - 浅色风格 ==================== */
+/* 背景装饰 - 云纹 */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(245, 197, 66, 0.05) 0%, transparent 20%),
+    radial-gradient(circle at 90% 80%, rgba(231, 76, 60, 0.05) 0%, transparent 20%),
+    radial-gradient(circle at 50% 50%, rgba(52, 152, 219, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ==================== 导航栏样式 ==================== */
 .navbar-custom {
-  background: #ffffff !important;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid #e2e8f0;
-  box-shadow: var(--shadow-sm);
+  background: var(--bg-darker) !important;
+  border-bottom: var(--pixel-border);
+  box-shadow: var(--shadow-pixel-sm);
 }
 
 .navbar-custom .navbar-brand {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-size: 1.5rem;
-  font-weight: 700;
+  color: var(--primary-gold) !important;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-shadow: 3px 3px 0 #000;
+  letter-spacing: 2px;
 }
 
 .navbar-custom .nav-link {
   position: relative;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
   margin: 0 0.25rem;
-  border-radius: var(--radius-sm);
-  transition: all 0.3s ease;
-  color: #64748b !important;
-  font-weight: 500;
+  color: var(--text-light) !important;
+  font-size: 10px;
+  border: 2px solid transparent;
+  transition: all 0.1s;
 }
 
 .navbar-custom .nav-link:hover {
-  background: rgba(102, 126, 234, 0.1);
-  color: #667eea !important;
+  background: var(--accent-red);
+  color: var(--primary-gold) !important;
+  border: 2px solid #000;
+  box-shadow: var(--shadow-pixel-sm);
+  transform: translate(-2px, -2px);
 }
 
 .navbar-custom .nav-link.active {
-  background: var(--primary-gradient);
-  color: white !important;
-  box-shadow: var(--shadow-md);
+  background: var(--accent-red-dark);
+  color: var(--primary-gold) !important;
+  border: 2px solid #000;
+  box-shadow: inset 4px 4px 0 rgba(0,0,0,0.3);
 }
 
 /* 导航栏下拉菜单 */
 .navbar-custom .dropdown-menu {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  box-shadow: var(--shadow-lg);
+  background: var(--bg-darker);
+  border: var(--pixel-border);
+  box-shadow: var(--shadow-pixel);
 }
 
 .navbar-custom .dropdown-item {
-  color: #1e293b;
+  color: var(--text-light);
+  font-size: 10px;
+  border: 2px solid transparent;
 }
 
 .navbar-custom .dropdown-item:hover {
-  background: rgba(102, 126, 234, 0.1);
-  color: #667eea;
+  background: var(--accent-red);
+  color: var(--primary-gold);
+  border: 2px solid #000;
 }
 
 .navbar-custom .dropdown-item.active {
-  background: var(--primary-gradient);
-  color: white;
+  background: var(--accent-red-dark);
+  color: var(--primary-gold);
 }
 
 .navbar-custom .dropdown-toggle {
-  color: #64748b !important;
-  border: 1px solid #e2e8f0;
-  background: #f8fafc;
+  color: var(--primary-gold) !important;
+  background: var(--bg-card);
+  border: 2px solid #000;
+  font-size: 10px;
 }
 
 .navbar-custom .dropdown-toggle:hover {
-  background: #f1f5f9;
-  color: #667eea !important;
+  background: var(--accent-red);
 }
 
 /* ==================== 卡片样式 ==================== */
 .card-modern {
   background: var(--bg-card);
-  border: none;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
+  border: var(--pixel-border);
+  box-shadow: var(--shadow-pixel);
+  transition: all 0.1s;
 }
 
 .card-modern:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-xl), var(--shadow-glow);
+  transform: translate(-4px, -4px);
+  box-shadow: calc(var(--shadow-pixel) + 4px) calc(var(--shadow-pixel) + 4px) 0 #000;
 }
 
 .card-gradient {
   position: relative;
   background: var(--bg-card);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
+  border: var(--pixel-border);
+  box-shadow: var(--shadow-pixel);
 }
 
 .card-gradient::before {
@@ -151,133 +188,153 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
-  background: var(--primary-gradient);
+  height: 8px;
+  background: var(--primary-gold);
 }
 
 .card-gradient.success::before {
-  background: var(--success-gradient);
+  background: var(--accent-green);
 }
 
 .card-gradient.warning::before {
-  background: var(--warning-gradient);
+  background: var(--accent-red);
 }
 
 .card-gradient.info::before {
-  background: var(--info-gradient);
+  background: var(--accent-blue);
 }
 
 .card-gradient.danger::before {
-  background: var(--danger-gradient);
+  background: var(--accent-purple);
 }
 
 /* ==================== 统计卡片 ==================== */
 .stat-card {
   background: var(--bg-card);
-  border-radius: var(--radius-lg);
+  border: var(--pixel-border);
+  box-shadow: var(--shadow-pixel);
   padding: 1.5rem;
-  box-shadow: var(--shadow-md);
-  transition: all 0.3s ease;
   position: relative;
-  overflow: hidden;
 }
 
 .stat-card::after {
   content: '';
   position: absolute;
-  top: -50%;
-  right: -50%;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
-  transition: all 0.3s ease;
-}
-
-.stat-card:hover::after {
-  top: -30%;
-  right: -30%;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 30px 30px 0;
+  border-color: transparent var(--primary-gold) transparent transparent;
 }
 
 .stat-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  transform: translate(-2px, -2px);
+  box-shadow: calc(var(--shadow-pixel) + 2px) calc(var(--shadow-pixel) + 2px) 0 #000;
 }
 
 .stat-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: var(--radius-md);
+  width: 50px;
+  height: 50px;
+  border: 3px solid #000;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
 }
 
 .stat-icon.primary {
-  background: var(--primary-gradient);
-  color: white;
-  box-shadow: 0 4px 14px rgba(102, 126, 234, 0.4);
+  background: var(--primary-gold);
+  color: #000;
+  box-shadow: 3px 3px 0 #000;
 }
 
 .stat-icon.success {
-  background: var(--success-gradient);
-  color: white;
-  box-shadow: 0 4px 14px rgba(17, 153, 142, 0.4);
+  background: var(--accent-green);
+  color: #fff;
+  box-shadow: 3px 3px 0 #000;
 }
 
 .stat-icon.warning {
-  background: var(--warning-gradient);
-  color: white;
-  box-shadow: 0 4px 14px rgba(245, 87, 108, 0.4);
+  background: var(--accent-red);
+  color: #fff;
+  box-shadow: 3px 3px 0 #000;
 }
 
 .stat-icon.info {
-  background: var(--info-gradient);
-  color: white;
-  box-shadow: 0 4px 14px rgba(79, 172, 254, 0.4);
+  background: var(--accent-blue);
+  color: #fff;
+  box-shadow: 3px 3px 0 #000;
 }
 
 .stat-icon.danger {
-  background: var(--danger-gradient);
-  color: white;
-  box-shadow: 0 4px 14px rgba(250, 112, 154, 0.4);
+  background: var(--accent-purple);
+  color: #fff;
+  box-shadow: 3px 3px 0 #000;
 }
 
 /* ==================== 按钮样式 ==================== */
 .btn-gradient {
-  background: var(--primary-gradient);
-  border: none;
-  color: white;
-  padding: 0.625rem 1.5rem;
-  border-radius: var(--radius-md);
-  font-weight: 500;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 14px rgba(102, 126, 234, 0.4);
+  background: var(--primary-gold);
+  border: 3px solid #000;
+  color: #000;
+  padding: 0.75rem 1.5rem;
+  font-size: 10px;
+  font-weight: bold;
+  box-shadow: 4px 4px 0 #000;
+  transition: all 0.1s;
+  text-transform: uppercase;
 }
 
 .btn-gradient:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
-  color: white;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #000;
+  color: #000;
+}
+
+.btn-gradient:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000;
 }
 
 .btn-gradient-success {
-  background: var(--success-gradient);
-  box-shadow: 0 4px 14px rgba(17, 153, 142, 0.4);
+  background: var(--accent-green);
 }
 
 .btn-gradient-success:hover {
-  box-shadow: 0 6px 20px rgba(17, 153, 142, 0.5);
+  background: var(--accent-green-dark);
+}
+
+/* 像素按钮变体 */
+.btn-pixel {
+  background: var(--bg-card-light);
+  border: 3px solid #000;
+  color: var(--primary-gold);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 4px 4px 0 #000;
+  transition: all 0.1s;
+}
+
+.btn-pixel:hover {
+  background: var(--accent-red);
+  color: var(--text-light);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #000;
+}
+
+.btn-pixel:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000;
 }
 
 /* ==================== 版本卡片 ==================== */
 .version-card {
   background: var(--bg-card);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: var(--pixel-border);
+  box-shadow: var(--shadow-pixel);
   position: relative;
-  overflow: hidden;
 }
 
 .version-card::before {
@@ -286,222 +343,358 @@ body {
   left: 0;
   top: 0;
   bottom: 0;
-  width: 4px;
-  background: var(--primary-gradient);
-  transition: width 0.3s ease;
-}
-
-.version-card:hover::before {
-  width: 6px;
+  width: 8px;
+  background: var(--primary-gold);
 }
 
 .version-card:hover {
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: var(--shadow-xl);
+  transform: translate(-4px, -4px);
+  box-shadow: calc(var(--shadow-pixel) + 4px) calc(var(--shadow-pixel) + 4px) 0 #000;
 }
 
 .version-card.planning::before {
-  background: linear-gradient(180deg, #94a3b8 0%, #64748b 100%);
+  background: var(--text-muted);
 }
 
 .version-card.in_progress::before {
-  background: var(--primary-gradient);
+  background: var(--primary-gold);
 }
 
 .version-card.released::before {
-  background: var(--success-gradient);
+  background: var(--accent-green);
 }
 
 .version-card.archived::before {
-  background: linear-gradient(180deg, #475569 0%, #334155 100%);
+  background: var(--accent-purple);
 }
 
 /* ==================== 看板样式 ==================== */
 .kanban-column {
-  background: var(--bg-secondary);
-  border-radius: var(--radius-lg);
-  min-height: 500px;
+  background: var(--bg-card);
+  border: var(--pixel-border);
+  box-shadow: var(--shadow-pixel-sm);
 }
 
 .kanban-column-header {
-  background: var(--bg-card);
-  border-radius: var(--radius-md);
+  background: var(--bg-darker);
+  border-bottom: 3px solid #000;
   padding: 1rem;
-  margin-bottom: 1rem;
-  box-shadow: var(--shadow-sm);
+  margin-bottom: 0;
 }
 
 .kanban-task {
-  background: var(--bg-card);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-  transition: all 0.2s ease;
+  background: var(--bg-card-light);
+  border: 3px solid #000;
+  box-shadow: 3px 3px 0 #000;
   cursor: grab;
-  border: 2px solid transparent;
 }
 
 .kanban-task:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+  background: var(--accent-red-dark);
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 #000;
 }
 
 .kanban-task.dragging {
-  opacity: 0.5;
-  transform: rotate(3deg);
-  box-shadow: var(--shadow-xl);
+  opacity: 0.8;
+  transform: rotate(0deg);
+  box-shadow: 6px 6px 0 #000;
 }
 
 /* ==================== 进度条样式 ==================== */
 .progress-modern {
-  height: 8px;
-  background: var(--bg-secondary);
-  border-radius: 100px;
-  overflow: hidden;
+  height: 16px;
+  background: var(--bg-darker);
+  border: 3px solid #000;
 }
 
 .progress-bar-modern {
-  background: var(--primary-gradient);
-  border-radius: 100px;
-  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--primary-gold);
+  border-right: 3px solid #000;
+  transition: width 0.3s;
 }
 
 /* ==================== 标签样式 ==================== */
 .badge-modern {
-  padding: 0.375rem 0.75rem;
-  border-radius: 100px;
-  font-weight: 500;
-  font-size: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border: 2px solid #000;
+  font-size: 8px;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .badge-gradient-primary {
-  background: var(--primary-gradient);
-  color: white;
+  background: var(--primary-gold);
+  color: #000;
 }
 
 .badge-gradient-success {
-  background: var(--success-gradient);
-  color: white;
+  background: var(--accent-green);
+  color: #fff;
 }
 
 .badge-gradient-warning {
-  background: var(--warning-gradient);
-  color: white;
+  background: var(--accent-red);
+  color: #fff;
 }
 
 /* ==================== 动画效果 ==================== */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+@keyframes pixelPulse {
+  0%, 100% {
+    transform: scale(1);
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  50% {
+    transform: scale(1.05);
   }
 }
 
-@keyframes pulse {
+@keyframes float {
   0%, 100% {
-    opacity: 1;
+    transform: translateY(0);
   }
   50% {
-    opacity: 0.7;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes blink {
+  0%, 50%, 100% {
+    opacity: 1;
+  }
+  25%, 75% {
+    opacity: 0;
   }
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.5s ease-out;
+  animation: float 0.5s ease-out;
 }
 
 .animate-pulse-slow {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: pixelPulse 2s infinite;
 }
 
 /* ==================== 页面内容区域 ==================== */
 .page-content {
-  background: #ffffff;
+  background: var(--bg-darker);
   min-height: 200px;
   margin: 1rem;
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid #e2e8f0;
+  border: var(--pixel-border);
+  box-shadow: var(--shadow-pixel);
 }
 
 /* ==================== 甘特图自定义样式 ==================== */
 .gantt-modern .gantt .bar {
-  fill: url(#gradient-bar);
+  fill: var(--primary-gold);
 }
 
 .gantt-modern .gantt .bar-progress {
-  fill: url(#gradient-progress);
+  fill: var(--accent-red);
 }
 
 /* ==================== 模态框样式 ==================== */
 .modal-content-modern {
-  border: none;
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-xl);
+  border: var(--pixel-border);
+  box-shadow: var(--shadow-pixel-lg);
+  background: var(--bg-darker);
 }
 
 .modal-header-modern {
-  background: var(--primary-gradient);
-  color: white;
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-  border-bottom: none;
+  background: var(--accent-red-dark);
+  color: var(--primary-gold);
+  border-bottom: var(--pixel-border);
+  font-family: 'Press Start 2P', monospace;
 }
 
 .modal-header-modern .btn-close {
   filter: invert(1);
 }
 
+.modal-body {
+  background: var(--bg-card);
+  border-bottom: var(--pixel-border);
+}
+
+.modal-footer {
+  background: var(--bg-darker);
+}
+
 /* ==================== 表单样式 ==================== */
 .form-control-modern {
-  border: 2px solid var(--bg-secondary);
-  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  border: 3px solid #000;
+  color: var(--text-light);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
   padding: 0.75rem 1rem;
-  transition: all 0.3s ease;
 }
 
 .form-control-modern:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  background: var(--bg-card-light);
+  border-color: var(--primary-gold);
+  box-shadow: 4px 4px 0 var(--primary-gold);
+  color: var(--primary-gold);
+}
+
+.form-control-modern::placeholder {
+  color: var(--text-muted);
 }
 
 /* ==================== 下拉菜单样式 ==================== */
 .dropdown-menu-modern {
-  border: none;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-xl);
-  padding: 0.5rem;
+  background: var(--bg-darker);
+  border: var(--pixel-border);
+  box-shadow: var(--shadow-pixel);
 }
 
 .dropdown-item-modern {
-  border-radius: var(--radius-sm);
-  padding: 0.625rem 1rem;
-  transition: all 0.2s ease;
+  color: var(--text-light);
+  font-size: 10px;
+  border: 2px solid transparent;
 }
 
 .dropdown-item-modern:hover {
-  background: var(--primary-gradient);
-  color: white;
+  background: var(--accent-red);
+  color: var(--primary-gold);
+  border: 2px solid #000;
 }
 
 /* ==================== 滚动条美化 ==================== */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
-  border-radius: 100px;
+  background: var(--bg-darker);
+  border: 2px solid #000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-gradient);
-  border-radius: 100px;
+  background: var(--primary-gold);
+  border: 2px solid #000;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--secondary-color);
+  background: var(--primary-gold-dark);
+}
+
+/* ==================== 像素风格标题 ==================== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Press Start 2P', monospace;
+  color: var(--primary-gold);
+  text-shadow: 3px 3px 0 #000;
+  letter-spacing: 2px;
+}
+
+/* ==================== 像素风格边框 ==================== */
+.pixel-border {
+  border: var(--pixel-border);
+}
+
+.pixel-border-light {
+  border: var(--pixel-border-light);
+}
+
+/* ==================== 筋斗云装饰 ==================== */
+.cloud-decoration {
+  position: relative;
+}
+
+.cloud-decoration::before {
+  content: '☁';
+  position: absolute;
+  top: -20px;
+  right: 20px;
+  font-size: 24px;
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ==================== 金箍棒装饰 ==================== */
+.golden-bar-decoration {
+  position: relative;
+  padding-left: 30px;
+}
+
+.golden-bar-decoration::before {
+  content: '📊';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ==================== 选中状态 ==================== */
+.selected {
+  outline: 4px solid var(--primary-gold);
+  outline-offset: 2px;
+}
+
+/* ==================== 表格样式 ==================== */
+.table {
+  color: var(--text-light);
+  border: 3px solid #000;
+}
+
+.table thead {
+  background: var(--accent-red-dark);
+  color: var(--primary-gold);
+}
+
+.table tbody tr {
+  background: var(--bg-card);
+  border-bottom: 2px solid #000;
+}
+
+.table tbody tr:hover {
+  background: var(--bg-card-light);
+}
+
+/* ==================== 分页样式 ==================== */
+.pagination {
+  gap: 8px;
+}
+
+.page-link {
+  background: var(--bg-card);
+  border: 3px solid #000;
+  color: var(--primary-gold);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+}
+
+.page-link:hover {
+  background: var(--accent-red);
+  color: var(--text-light);
+  border-color: #000;
+}
+
+.page-item.active .page-link {
+  background: var(--primary-gold);
+  color: #000;
+  border-color: #000;
+}
+
+/* ==================== 输入框数字样式 ==================== */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ==================== 选框样式 ==================== */
+.form-check-input {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #000;
+  background: var(--bg-card);
+}
+
+.form-check-input:checked {
+  background-color: var(--primary-gold);
+  border-color: #000;
+}
+
+.form-check-input:focus {
+  box-shadow: 4px 4px 0 var(--primary-gold);
 }

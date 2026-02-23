@@ -1,17 +1,11 @@
-import { useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { CheckCircle2, Clock, AlertCircle, Calendar } from 'lucide-react';
 import { useVersionStore } from '../../stores/versionStore';
 import { useTaskStore } from '../../stores/taskStore';
 
 export function Dashboard() {
-  const { versions, loadVersions } = useVersionStore();
-  const { tasks, loadTasks } = useTaskStore();
-
-  useEffect(() => {
-    loadVersions();
-    loadTasks();
-  }, [loadVersions, loadTasks]);
+  const { versions } = useVersionStore();
+  const { tasks } = useTaskStore();
 
   // 统计数据
   const totalTasks = tasks.length;
@@ -39,7 +33,7 @@ export function Dashboard() {
   return (
     <Container className="py-2">
       <div className="d-flex align-items-center mb-4">
-        <h1 className="mb-0 fw-bold" style={{ color: 'var(--text-primary)' }}>仪表盘</h1>
+        <h1 className="mb-0 fw-bold" style={{ color: 'var(--primary-gold)' }}>🐵 取经之路 🐲</h1>
         <div className="ms-auto">
           <span className="badge badge-gradient-primary" style={{ fontSize: '0.9rem' }}>
             总任务: {totalTasks}

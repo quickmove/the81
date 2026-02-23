@@ -14,8 +14,8 @@ export function InteractiveGantt() {
   const ganttInstance = useRef<Gantt | null>(null);
   const taskListRef = useRef<HTMLDivElement>(null);
 
-  const { versions, selectedVersionId, selectVersion, loadVersions } = useVersionStore();
-  const { tasks, loadTasks, updateTask, addTask, deleteTask } = useTaskStore();
+  const { versions, selectedVersionId, selectVersion } = useVersionStore();
+  const { tasks, updateTask, addTask, deleteTask } = useTaskStore();
 
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
@@ -23,11 +23,6 @@ export function InteractiveGantt() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isCreatingDependency, setIsCreatingDependency] = useState(false);
   const [dependencySource, setDependencySource] = useState<string | null>(null);
-
-  useEffect(() => {
-    loadVersions();
-    loadTasks();
-  }, [loadVersions, loadTasks]);
 
   // 过滤和排序任务
   const getFilteredTasks = useCallback(() => {
@@ -53,7 +48,7 @@ export function InteractiveGantt() {
   const filteredTasks = getFilteredTasks();
 
   // 准备甘特图数据
-  const getGanttTasks = () => {
+  const getGanttTasks = useCallback(() => {
     return filteredTasks.map(task => ({
       id: task.id,
       name: task.title,
@@ -63,46 +58,45 @@ export function InteractiveGantt() {
       dependencies: task.dependencies.join(','),
       custom_class: selectedTaskIds.includes(task.id) ? `selected-${task.priority}` : `priority-${task.priority}`
     }));
-  };
+  }, [filteredTasks, selectedTaskIds]);
+
+  // 创建 Gantt 配置 - 使用 ref 来避免依赖问题
+  const createGanttOptions = useCallback(() => ({
+    view_mode: 'Day' as const,
+    date_format: 'YYYY-MM-DD',
+    language: 'zh',
+    on_click: (ganttTask: any) => {
+      const task = tasksRef.current.find(t => t.id === ganttTask.id);
+      if (task) {
+        if (isCreatingDependencyRef.current && dependencySourceRef.current && dependencySourceRef.current !== task.id) {
+          handleLinkTasks(dependencySourceRef.current, task.id);
+          setIsCreatingDependency(false);
+          setDependencySource(null);
+        } else {
+          handleSelectTask(task.id, false);
+        }
+      }
+    },
+    on_date_change: (task: any, start: string, end: string) => {
+      updateTaskRef.current(task.id, {
+        startDate: new Date(start),
+        endDate: new Date(end)
+      });
+    },
+    on_progress_change: (task: any, progress: number) => {
+      updateTaskRef.current(task.id, { progress });
+    }
+  }), []);
 
   // 初始化甘特图（只执行一次）
   useEffect(() => {
     if (ganttRef.current && !ganttInstance.current && filteredTasks.length > 0) {
       const ganttTasks = getGanttTasks();
-
-      ganttInstance.current = new Gantt(ganttRef.current, ganttTasks, {
-        view_mode: 'Day',
-        date_format: 'YYYY-MM-DD',
-        language: 'zh',
-        on_click: (ganttTask: any) => {
-          const task = tasks.find(t => t.id === ganttTask.id);
-          if (task) {
-            if (isCreatingDependencyRef.current && dependencySourceRef.current && dependencySourceRef.current !== task.id) {
-              // 创建依赖关系
-              handleLinkTasks(dependencySourceRef.current, task.id);
-              setIsCreatingDependency(false);
-              setDependencySource(null);
-            } else {
-              handleSelectTask(task.id, false);
-            }
-          }
-        },
-        on_date_change: (task: any, start: string, end: string) => {
-          updateTask(task.id, {
-            startDate: new Date(start),
-            endDate: new Date(end)
-          });
-        },
-        on_progress_change: (task: any, progress: number) => {
-          updateTask(task.id, { progress });
-        }
-      });
+      ganttInstance.current = new Gantt(ganttRef.current, ganttTasks, createGanttOptions());
     }
 
-    // 组件卸载时清理
     return () => {
       if (ganttInstance.current) {
-        // 清理 DOM
         const container = ganttRef.current;
         if (container) {
           container.innerHTML = '';
@@ -111,53 +105,43 @@ export function InteractiveGantt() {
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // 只在组件挂载时初始化
+  }, []);
 
   // 使用 ref 来跟踪状态，避免重新初始化甘特图
   const isCreatingDependencyRef = useRef(isCreatingDependency);
   const dependencySourceRef = useRef(dependencySource);
+  const tasksRef = useRef(tasks);
+  const updateTaskRef = useRef(updateTask);
 
   useEffect(() => {
     isCreatingDependencyRef.current = isCreatingDependency;
     dependencySourceRef.current = dependencySource;
-  }, [isCreatingDependency, dependencySource]);
+    tasksRef.current = tasks;
+    updateTaskRef.current = updateTask;
+  }, [isCreatingDependency, dependencySource, tasks, updateTask]);
 
   // 更新甘特图数据（当任务数据变化时）
+  // 使用防抖避免频繁更新
   useEffect(() => {
-    if (ganttRef.current && filteredTasks.length > 0) {
-      // 清空容器，重新初始化
-      ganttRef.current.innerHTML = '';
-      ganttInstance.current = null;
+    let timeoutId: ReturnType<typeof setTimeout>;
 
-      const ganttTasks = getGanttTasks();
-      ganttInstance.current = new Gantt(ganttRef.current, ganttTasks, {
-        view_mode: 'Day',
-        date_format: 'YYYY-MM-DD',
-        language: 'zh',
-        on_click: (ganttTask: any) => {
-          const task = tasks.find(t => t.id === ganttTask.id);
-          if (task) {
-            if (isCreatingDependencyRef.current && dependencySourceRef.current && dependencySourceRef.current !== task.id) {
-              handleLinkTasks(dependencySourceRef.current, task.id);
-              setIsCreatingDependency(false);
-              setDependencySource(null);
-            } else {
-              handleSelectTask(task.id, false);
-            }
-          }
-        },
-        on_date_change: (task: any, start: string, end: string) => {
-          updateTask(task.id, {
-            startDate: new Date(start),
-            endDate: new Date(end)
-          });
-        },
-        on_progress_change: (task: any, progress: number) => {
-          updateTask(task.id, { progress });
-        }
-      });
-    }
-  }, [filteredTasks, selectedTaskIds, tasks, updateTask]);
+    const refreshGantt = () => {
+      if (ganttInstance.current && ganttRef.current) {
+        const ganttTasks = getGanttTasks();
+        // 使用 refresh 方法更新
+        ganttInstance.current.refresh(ganttTasks);
+      } else if (ganttRef.current && filteredTasks.length > 0) {
+        // 如果实例不存在但有数据，重新初始化
+        const ganttTasks = getGanttTasks();
+        ganttInstance.current = new Gantt(ganttRef.current, ganttTasks, createGanttOptions());
+      }
+    };
+
+    // 防抖 300ms
+    timeoutId = setTimeout(refreshGantt, 300);
+
+    return () => clearTimeout(timeoutId);
+  }, [filteredTasks, getGanttTasks, createGanttOptions]);
 
   // 选择任务
   const handleSelectTask = (taskId: string, isCtrlClick: boolean) => {
