@@ -336,6 +336,16 @@ export function InteractiveGantt() {
           fill: var(--text-primary);
         }
         /* 头部背景色 - 使用更广的选择器 */
+        .gantt-wrapper,
+        .gantt-wrapper .gantt,
+        .gantt-wrapper .header,
+        .gantt-wrapper .header rect,
+        .gantt-wrapper .header-row,
+        .gantt-wrapper .header-row rect,
+        .gantt-wrapper .upper-header,
+        .gantt-wrapper .upper-header rect,
+        .gantt-wrapper .lower-header,
+        .gantt-wrapper .lower-header rect,
         .gantt .header,
         .gantt .header rect,
         .gantt .header-row,
