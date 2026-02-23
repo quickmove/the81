@@ -323,16 +323,6 @@ export function InteractiveGantt() {
       )}
 
       <style>{`
-        /* 强制所有甘特图元素使用深色背景 */
-        .gantt-container,
-        .gantt-container * {
-          background-color: transparent !important;
-        }
-        .gantt-container .gantt,
-        .gantt-container .gantt * {
-          fill: #16213e !important;
-          background: #16213e !important;
-        }
         .gantt-container {
           background: var(--bg-card) !important;
         }
@@ -343,26 +333,19 @@ export function InteractiveGantt() {
         .gantt .bar-label {
           font-size: 11px;
           font-weight: 500;
-          fill: #000000 !important;
-          color: #000000 !important;
+          fill: var(--text-primary);
         }
         .gantt .grid-header,
         .gantt .grid-header rect,
         .gantt .grid-header-row,
-        .gantt .grid-header-row rect,
-        .gantt .date-picker,
-        .gantt .date-picker-container,
-        .gantt .calendar-header,
-        .gantt .calendar-weekday {
+        .gantt .grid-header-row rect {
           fill: #16213e !important;
           background: #16213e !important;
         }
         .gantt .grid-header span,
-        .gantt .grid-header text,
-        .gantt .date-picker-text,
-        .gantt .calendar-weekday text {
-          fill: #ffffff !important;
-          color: #ffffff !important;
+        .gantt .grid-header text {
+          fill: var(--text-primary) !important;
+          color: var(--text-primary) !important;
         }
         .gantt .grid-row,
         .gantt .grid-row rect {
@@ -376,24 +359,6 @@ export function InteractiveGantt() {
         }
         .gantt .today-highlight {
           fill: rgba(184, 134, 11, 0.3);
-        }
-        .gantt .today-highlight text,
-        .gantt .today-text,
-        .gantt .today-label {
-          fill: #ffffff !important;
-          color: #ffffff !important;
-        }
-        .gantt .month-duration-text,
-        .gantt .month-text,
-        .gantt .calendar-month-text,
-        .gantt .upper-text,
-        .gantt .upper-text text,
-        .gantt .month-name,
-        .gantt .month-name text,
-        .gantt .bar-month-duration-text {
-          fill: #ffffff !important;
-          color: #ffffff !important;
-          font-weight: bold;
         }
         .gantt .tick {
           stroke: #586e75;
