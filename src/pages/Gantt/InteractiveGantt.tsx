@@ -86,6 +86,7 @@ export function InteractiveGantt() {
         view_mode: 'Day',
         date_format: 'YYYY-MM-DD',
         language: 'zh',
+        bar_height: 20,
         on_click: (ganttTask: any) => {
           const task = tasksRef.current.find(t => t.id === ganttTask.id);
           if (task) {
@@ -329,20 +330,25 @@ export function InteractiveGantt() {
           --g-text-dark: #ffffff !important;
           --g-text-muted: #93a1a1 !important;
           --g-actions-background: #f5c542 !important;
-          height: calc(var(--gv-grid-height) + 60px) !important;
+          --g-weekend-highlight-color: rgba(30, 30, 50, 0.6) !important;
+          height: 100% !important;
+          overflow-x: auto !important;
+          overflow-y: hidden !important;
         }
         .gantt-container .side-header .btn-today {
           background: #f5c542 !important;
           color: #000 !important;
         }
         .gantt-container .gantt {
-          overflow: auto;
+          overflow-x: auto !important;
+          overflow-y: hidden !important;
           background: var(--bg-card) !important;
+          max-height: 100% !important;
         }
         .gantt .bar-label {
           font-size: 11px;
           font-weight: 500;
-          fill: var(--text-primary);
+          fill: #000000 !important;
         }
         /* 头部背景色 - grid-header 下的 upper-header 和 lower-header */
         .gantt .grid-header .upper-header,
@@ -387,9 +393,6 @@ export function InteractiveGantt() {
         .gantt .day-wrapper {
           background: var(--bg-card) !important;
         }
-        .gantt .holiday {
-          fill: rgba(139, 0, 0, 0.3) !important;
-        }
         .gantt-container svg {
           background: var(--bg-card) !important;
         }
@@ -405,6 +408,9 @@ export function InteractiveGantt() {
         }
         .gantt .popup-wrapper .date {
           color: var(--text-muted) !important;
+        }
+        .gantt .bar {
+          fill: var(--primary-gold) !important;
         }
         .priority-urgent .bar, .selected-urgent .bar {
           fill: url(#gradient-urgent);
