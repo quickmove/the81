@@ -1,0 +1,507 @@
+/* The81 自定义主题样式 */
+
+/* ==================== CSS 变量定义 ==================== */
+:root {
+  /* 主色调 - 渐变蓝紫 */
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --primary-color: #667eea;
+  --secondary-color: #764ba2;
+  
+  /* 状态颜色 */
+  --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  --warning-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --info-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --danger-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  
+  /* 中性色 */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-card: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  
+  /* 阴影 */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-glow: 0 0 20px rgba(102, 126, 234, 0.3);
+  
+  /* 圆角 */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+}
+
+/* ==================== 全局样式 ==================== */
+html {
+  font-size: 14px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: #f1f5f9 !important;
+  min-height: 100vh;
+  font-size: 14px;
+}
+
+#root {
+  background: #f1f5f9;
+  min-height: 100vh;
+}
+
+/* ==================== 导航栏样式 - 浅色风格 ==================== */
+.navbar-custom {
+  background: #ffffff !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: var(--shadow-sm);
+}
+
+.navbar-custom .navbar-brand {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.navbar-custom .nav-link {
+  position: relative;
+  padding: 0.5rem 1rem;
+  margin: 0 0.25rem;
+  border-radius: var(--radius-sm);
+  transition: all 0.3s ease;
+  color: #64748b !important;
+  font-weight: 500;
+}
+
+.navbar-custom .nav-link:hover {
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea !important;
+}
+
+.navbar-custom .nav-link.active {
+  background: var(--primary-gradient);
+  color: white !important;
+  box-shadow: var(--shadow-md);
+}
+
+/* 导航栏下拉菜单 */
+.navbar-custom .dropdown-menu {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: var(--shadow-lg);
+}
+
+.navbar-custom .dropdown-item {
+  color: #1e293b;
+}
+
+.navbar-custom .dropdown-item:hover {
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+}
+
+.navbar-custom .dropdown-item.active {
+  background: var(--primary-gradient);
+  color: white;
+}
+
+.navbar-custom .dropdown-toggle {
+  color: #64748b !important;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.navbar-custom .dropdown-toggle:hover {
+  background: #f1f5f9;
+  color: #667eea !important;
+}
+
+/* ==================== 卡片样式 ==================== */
+.card-modern {
+  background: var(--bg-card);
+  border: none;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.card-modern:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl), var(--shadow-glow);
+}
+
+.card-gradient {
+  position: relative;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.card-gradient::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--primary-gradient);
+}
+
+.card-gradient.success::before {
+  background: var(--success-gradient);
+}
+
+.card-gradient.warning::before {
+  background: var(--warning-gradient);
+}
+
+.card-gradient.info::before {
+  background: var(--info-gradient);
+}
+
+.card-gradient.danger::before {
+  background: var(--danger-gradient);
+}
+
+/* ==================== 统计卡片 ==================== */
+.stat-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover::after {
+  top: -30%;
+  right: -30%;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.stat-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.stat-icon.primary {
+  background: var(--primary-gradient);
+  color: white;
+  box-shadow: 0 4px 14px rgba(102, 126, 234, 0.4);
+}
+
+.stat-icon.success {
+  background: var(--success-gradient);
+  color: white;
+  box-shadow: 0 4px 14px rgba(17, 153, 142, 0.4);
+}
+
+.stat-icon.warning {
+  background: var(--warning-gradient);
+  color: white;
+  box-shadow: 0 4px 14px rgba(245, 87, 108, 0.4);
+}
+
+.stat-icon.info {
+  background: var(--info-gradient);
+  color: white;
+  box-shadow: 0 4px 14px rgba(79, 172, 254, 0.4);
+}
+
+.stat-icon.danger {
+  background: var(--danger-gradient);
+  color: white;
+  box-shadow: 0 4px 14px rgba(250, 112, 154, 0.4);
+}
+
+/* ==================== 按钮样式 ==================== */
+.btn-gradient {
+  background: var(--primary-gradient);
+  border: none;
+  color: white;
+  padding: 0.625rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(102, 126, 234, 0.4);
+}
+
+.btn-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+  color: white;
+}
+
+.btn-gradient-success {
+  background: var(--success-gradient);
+  box-shadow: 0 4px 14px rgba(17, 153, 142, 0.4);
+}
+
+.btn-gradient-success:hover {
+  box-shadow: 0 6px 20px rgba(17, 153, 142, 0.5);
+}
+
+/* ==================== 版本卡片 ==================== */
+.version-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.version-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--primary-gradient);
+  transition: width 0.3s ease;
+}
+
+.version-card:hover::before {
+  width: 6px;
+}
+
+.version-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: var(--shadow-xl);
+}
+
+.version-card.planning::before {
+  background: linear-gradient(180deg, #94a3b8 0%, #64748b 100%);
+}
+
+.version-card.in_progress::before {
+  background: var(--primary-gradient);
+}
+
+.version-card.released::before {
+  background: var(--success-gradient);
+}
+
+.version-card.archived::before {
+  background: linear-gradient(180deg, #475569 0%, #334155 100%);
+}
+
+/* ==================== 看板样式 ==================== */
+.kanban-column {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  min-height: 500px;
+}
+
+.kanban-column-header {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.kanban-task {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+  cursor: grab;
+  border: 2px solid transparent;
+}
+
+.kanban-task:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.kanban-task.dragging {
+  opacity: 0.5;
+  transform: rotate(3deg);
+  box-shadow: var(--shadow-xl);
+}
+
+/* ==================== 进度条样式 ==================== */
+.progress-modern {
+  height: 8px;
+  background: var(--bg-secondary);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.progress-bar-modern {
+  background: var(--primary-gradient);
+  border-radius: 100px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== 标签样式 ==================== */
+.badge-modern {
+  padding: 0.375rem 0.75rem;
+  border-radius: 100px;
+  font-weight: 500;
+  font-size: 0.75rem;
+}
+
+.badge-gradient-primary {
+  background: var(--primary-gradient);
+  color: white;
+}
+
+.badge-gradient-success {
+  background: var(--success-gradient);
+  color: white;
+}
+
+.badge-gradient-warning {
+  background: var(--warning-gradient);
+  color: white;
+}
+
+/* ==================== 动画效果 ==================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ==================== 页面内容区域 ==================== */
+.page-content {
+  background: #ffffff;
+  min-height: 200px;
+  margin: 1rem;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #e2e8f0;
+}
+
+/* ==================== 甘特图自定义样式 ==================== */
+.gantt-modern .gantt .bar {
+  fill: url(#gradient-bar);
+}
+
+.gantt-modern .gantt .bar-progress {
+  fill: url(#gradient-progress);
+}
+
+/* ==================== 模态框样式 ==================== */
+.modal-content-modern {
+  border: none;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+}
+
+.modal-header-modern {
+  background: var(--primary-gradient);
+  color: white;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  border-bottom: none;
+}
+
+.modal-header-modern .btn-close {
+  filter: invert(1);
+}
+
+/* ==================== 表单样式 ==================== */
+.form-control-modern {
+  border: 2px solid var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control-modern:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* ==================== 下拉菜单样式 ==================== */
+.dropdown-menu-modern {
+  border: none;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xl);
+  padding: 0.5rem;
+}
+
+.dropdown-item-modern {
+  border-radius: var(--radius-sm);
+  padding: 0.625rem 1rem;
+  transition: all 0.2s ease;
+}
+
+.dropdown-item-modern:hover {
+  background: var(--primary-gradient);
+  color: white;
+}
+
+/* ==================== 滚动条美化 ==================== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-gradient);
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-color);
+}
