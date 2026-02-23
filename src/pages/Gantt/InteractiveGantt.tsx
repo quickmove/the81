@@ -395,10 +395,6 @@ export function InteractiveGantt() {
           color: #ffffff !important;
           font-weight: bold;
         }
-        .gantt text {
-          fill: #ffffff !important;
-          color: #ffffff !important;
-        }
         .gantt .tick {
           stroke: #586e75;
         }
@@ -449,15 +445,6 @@ export function InteractiveGantt() {
           stroke: #667eea;
           stroke-width: 3px;
           filter: drop-shadow(0 0 6px rgba(102, 126, 234, 0.5));
-        }
-        /* 强制所有 SVG 文字为白色 */
-        .gantt svg text {
-          fill: #ffffff !important;
-          color: #ffffff !important;
-        }
-        .gantt .header-text {
-          fill: #ffffff !important;
-          color: #ffffff !important;
         }
       `}</style>
 
