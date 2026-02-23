@@ -326,14 +326,6 @@ export function InteractiveGantt() {
         .gantt-container .gantt {
           overflow: auto;
         }
-        .gantt .bar-wrapper:hover .bar {
-          filter: brightness(1.1);
-        }
-        .gantt .bar-wrapper.selected-bar .bar {
-          stroke: #667eea;
-          stroke-width: 3px;
-          filter: drop-shadow(0 0 6px rgba(102, 126, 234, 0.5));
-        }
         .gantt .bar-label {
           font-size: 11px;
           font-weight: 500;

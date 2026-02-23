@@ -44,8 +44,8 @@ export function KanbanTask({ task, priorityColor, priorityLabel, isOverlay }: Ka
         ...style,
         background: 'white',
         borderRadius: 'var(--radius-md)',
-        boxShadow: isOverlay ? 'var(--shadow-xl)' : 'var(--shadow-sm)',
-        padding: '16px',
+        boxShadow: isOverlay ? '2px 2px 0 #000' : '2px 2px 0 #000',
+        padding: '12px',
         border: isDragging ? '2px dashed var(--primary-color)' : '2px solid transparent',
         transform: isDragging ? `${style.transform} rotate(3deg)` : style.transform,
         transition: 'all 0.2s ease'
