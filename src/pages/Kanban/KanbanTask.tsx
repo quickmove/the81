@@ -42,7 +42,7 @@ export function KanbanTask({ task, priorityColor, priorityLabel, isOverlay }: Ka
       ref={setNodeRef}
       style={{
         ...style,
-        background: 'white',
+        background: 'var(--bg-card)',
         borderRadius: 'var(--radius-md)',
         padding: '12px',
         border: isDragging ? '2px dashed var(--primary-color)' : '2px solid transparent',

@@ -3,6 +3,41 @@
 /* 像素字体 - 必须放在最前面 */
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
+/* ==================== Bootstrap 组件深色覆盖 ==================== */
+.modal-content {
+  background: var(--bg-darker);
+  border: var(--pixel-border);
+}
+
+.modal-header {
+  background: var(--bg-darker);
+  border-bottom: var(--pixel-border);
+}
+
+.modal-body {
+  background: var(--bg-card);
+}
+
+.modal-footer {
+  background: var(--bg-darker);
+  border-top: var(--pixel-border);
+}
+
+.dropdown-menu {
+  background: var(--bg-darker);
+  border: var(--pixel-border);
+}
+
+.dropdown-item {
+  color: var(--text-primary);
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background: var(--accent-red);
+  color: #fff;
+}
+
 /* ==================== CSS 变量定义 ==================== */
 :root {
   /* 主色调 - 西游金 */
@@ -601,7 +636,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .table tbody tr:hover {
-  background: #f5f5f5;
+  background: var(--bg-card-light);
 }
 
 /* ==================== 分页样式 ==================== */

@@ -15,13 +15,13 @@ export function KanbanColumn({ status, children }: KanbanColumnProps) {
     <div
       ref={setNodeRef}
       className="d-flex flex-column gap-3"
-      style={{ 
+      style={{
         minHeight: '500px',
-        background: isOver ? 'rgba(102, 126, 234, 0.1)' : 'transparent',
+        background: isOver ? 'rgba(245, 197, 66, 0.15)' : 'transparent',
         borderRadius: 'var(--radius-md)',
         transition: 'all 0.2s ease',
         padding: '8px',
-        border: isOver ? '2px dashed #667eea' : '2px solid transparent'
+        border: isOver ? '2px dashed var(--primary-gold)' : '2px solid transparent'
       }}
     >
       {children}
