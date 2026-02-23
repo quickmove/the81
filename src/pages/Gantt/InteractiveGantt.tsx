@@ -328,7 +328,7 @@ export function InteractiveGantt() {
         }
         .gantt-container .gantt {
           overflow: auto;
-          background: var(--bg-card);
+          background: var(--bg-card) !important;
         }
         .gantt .bar-label {
           font-size: 11px;
@@ -336,13 +336,16 @@ export function InteractiveGantt() {
           fill: var(--text-primary);
         }
         .gantt .grid-header {
-          fill: #16213e;
+          fill: #16213e !important;
+        }
+        .gantt .grid-header span {
+          color: var(--text-primary) !important;
         }
         .gantt .grid-row {
-          fill: var(--bg-card);
+          fill: var(--bg-card) !important;
         }
         .gantt .grid-row:nth-child(even) {
-          fill: #0f3460;
+          fill: #0f3460 !important;
         }
         .gantt .today-highlight {
           fill: rgba(245, 197, 66, 0.2);
@@ -354,7 +357,29 @@ export function InteractiveGantt() {
           stroke: #586e75;
         }
         .gantt .grid-cell {
-          fill: var(--bg-card);
+          fill: var(--bg-card) !important;
+        }
+        .gantt .day-wrapper {
+          background: var(--bg-card) !important;
+        }
+        .gantt .holiday {
+          fill: rgba(231, 76, 60, 0.2) !important;
+        }
+        .gantt-container svg {
+          background: var(--bg-card) !important;
+        }
+        .gantt .popup-wrapper {
+          background: var(--bg-card) !important;
+          border: 2px solid #000;
+        }
+        .gantt .popup-wrapper .title {
+          color: var(--primary-gold) !important;
+        }
+        .gantt .popup-wrapper .subtitle {
+          color: var(--text-secondary) !important;
+        }
+        .gantt .popup-wrapper .date {
+          color: var(--text-muted) !important;
         }
         .priority-urgent .bar, .selected-urgent .bar {
           fill: url(#gradient-urgent);
